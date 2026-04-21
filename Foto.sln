@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foto.App", "Foto.App\Foto.App.csproj", "{EB687C2D-3EAA-4723-9E69-A3DB3EC6430F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foto.Math", "Foto.Math\Foto.Math.csproj", "{48EB2F4C-BAD7-4A1F-806D-A6D1915B8617}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB687C2D-3EAA-4723-9E69-A3DB3EC6430F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB687C2D-3EAA-4723-9E69-A3DB3EC6430F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB687C2D-3EAA-4723-9E69-A3DB3EC6430F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB687C2D-3EAA-4723-9E69-A3DB3EC6430F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48EB2F4C-BAD7-4A1F-806D-A6D1915B8617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48EB2F4C-BAD7-4A1F-806D-A6D1915B8617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48EB2F4C-BAD7-4A1F-806D-A6D1915B8617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48EB2F4C-BAD7-4A1F-806D-A6D1915B8617}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
