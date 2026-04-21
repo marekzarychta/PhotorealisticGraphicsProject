@@ -1,9 +1,13 @@
 ﻿namespace Foto.Math;
 
-public static class Math
+public static class MathFunctions
 {
-    public static float AngleBetween(Vector3 v1, Vector3 v2)
+    public static float RadiansToDegrees(float radians)
     {
-        return 0.0f;
+        return radians * 180 / MathF.PI;
+    }
+    public static float AngleBetweenVectors(Vector3 v1, Vector3 v2)
+    {
+        return RadiansToDegrees(MathF.Acos((v1.Dot(v2)) / (v1.Length() * v2.Length())));
     }
 }
