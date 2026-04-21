@@ -1,0 +1,12 @@
+﻿namespace Foto.Math;
+
+public struct Sphere
+{
+    public Vector3 position;
+    public float radius;
+    public Sphere(Vector3 position, float radius)
+    {
+        this.position = position;
+        this.radius = radius;
+    }
+}

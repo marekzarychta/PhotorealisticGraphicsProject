@@ -12,6 +12,7 @@ Console.WriteLine("Suma v2 i v1: " + zad1_2);
 
 Console.WriteLine("\t======ZAD 3======");
 Console.WriteLine("Kąt pomiędzy "+v1+" a "+v2+": "+MathFunctions.AngleBetweenVectors(v1,v2));
+
 Console.WriteLine("\t======ZAD 4,5======");
 Vector3 v3 = new Vector3(4, 5, 1);
 Vector3 v4 = new Vector3(4, 1, 3);
