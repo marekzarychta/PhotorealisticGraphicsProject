@@ -10,4 +10,5 @@ public static class MathFunctions
     {
         return RadiansToDegrees(MathF.Acos((v1.Dot(v2)) / (v1.Length() * v2.Length())));
     }
+    
 }

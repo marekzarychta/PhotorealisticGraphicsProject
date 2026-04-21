@@ -18,6 +18,15 @@ public struct Vector3
     public static Vector3 operator *(Vector3 a, float b) => new Vector3(a.x * b, a.y * b, a.z * b);
 
     public float Dot(Vector3 other) => x * other.x + y * other.y + z * other.z;
+
+    public Vector3 Cross(Vector3 other)
+    {
+        Vector3 result = new Vector3();
+        result.x = y * other.z - z * other.y;
+        result.y = z * other.x - x * other.z;
+        result.z = x * other.y - y * other.x;
+        return result;
+    }
     
     public float Length() => MathF.Sqrt(x * x + y * y + z * z);
     
