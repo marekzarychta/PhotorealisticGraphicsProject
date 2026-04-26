@@ -43,3 +43,7 @@ Console.WriteLine("\t======ZAD 12======");
 Ray R3 = new Ray(new Vector3(0,0,0),(new Vector3 (15,15,0)),100);
 Console.WriteLine("Ray R3: " + R3);
 Console.WriteLine("Przecięcie S  z R3: " + S.Hit(R3, 0.001f, R3.distance));
+
+Console.WriteLine("\t======TEST======");
+Matrix4x4 mac =  new Matrix4x4(2.0f);
+Console.WriteLine("Matrix4x4 mac: " + mac);
