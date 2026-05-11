@@ -49,7 +49,8 @@ Console.WriteLine("Przecięcie S  z R3: " + S.Hit(R3, 0.001f, R3.distance, out V
 Console.WriteLine(point);
 
 Console.WriteLine("\t======ZAD 13======");
-Vector3 normalVector = new Vector3(0, MathF.Cos(45.0f), MathF.Cos(45.0f));
+float angleRad = 45.0f * MathF.PI / 180.0f;
+Vector3 normalVector = new Vector3(0, angleRad, angleRad);
 Plane P = new Plane(normalVector, new Vector3(0, 0, 0));
 Console.WriteLine("Normalna: " + P.normal);
 Console.WriteLine("Kąt między normalną a osią Y: " + MathFunctions.AngleBetweenVectors(normalVector,new Vector3(0,1,0)));
