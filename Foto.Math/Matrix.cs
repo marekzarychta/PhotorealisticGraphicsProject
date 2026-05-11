@@ -12,6 +12,10 @@ public struct Matrix4x4
 
     public Matrix4x4()
     {
+        for (int i = 0; i < entries.Length; i++)
+        {
+            entries[i] = 0.0f;
+        }
     }
     
     public Matrix4x4(ref readonly float f){

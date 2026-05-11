@@ -19,5 +19,5 @@ public struct Ray
         this.distance = distance;
     }
     
-    public override string ToString() => "[Origin: " + origin + ", Destination: " + direction + ", Distance: " + distance + "]";
+    public override string ToString() => "[Origin: " + origin + ", Direction: " + direction + ", Distance: " + distance + "]";
 }

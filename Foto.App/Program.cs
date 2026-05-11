@@ -33,16 +33,33 @@ Ray R2 = new Ray(R1.origin, new Vector3(0, 1, 0), 100);
 Console.WriteLine("Ray R2: " + R2);
 
 Console.WriteLine("\t======ZAD 10======");
-Console.WriteLine("Przecięcie S z R1: " + S.Hit(R1, 0.001f, R1.distance));
-Console.WriteLine("Przecięcie S z R2: " + S.Hit(R2, 0.001f, R2.distance));
+Vector3 res1 = new Vector3();
+Vector3 res2 = new Vector3();
+Console.WriteLine("Przecięcie S z R1: " + S.Hit(R1, 0.001f, R1.distance, out res1));
+Console.WriteLine("Przecięcie S z R2: " + S.Hit(R2, 0.001f, R2.distance, out res2));
 
 Console.WriteLine("\t======ZAD 11======");
-// Console.WriteLine("S przecina się z R1 w punkcie: "+);
+Console.WriteLine("S przecina się z R1 w punkcie: "+res1);
+Console.WriteLine("S przecina się z R2 w punkcie: "+res2);
 
 Console.WriteLine("\t======ZAD 12======");
-Ray R3 = new Ray(new Vector3(0,0,0),(new Vector3 (15,15,0)),100);
+Ray R3 = new Ray(new Vector3(0,10,10),(new Vector3 (0,0,-1)),100);
 Console.WriteLine("Ray R3: " + R3);
-Console.WriteLine("Przecięcie S  z R3: " + S.Hit(R3, 0.001f, R3.distance));
+Console.WriteLine("Przecięcie S  z R3: " + S.Hit(R3, 0.001f, R3.distance, out Vector3 point));
+Console.WriteLine(point);
+
+Console.WriteLine("\t======ZAD 13======");
+Vector3 normalVector = new Vector3(0, MathF.Cos(45.0f), MathF.Cos(45.0f));
+
+Plane P = new Plane(normalVector, new Vector3(0, 0, 0), 0.0f);
+
+Console.WriteLine("Normalna: " + P.normal);
+Console.WriteLine("Kąt między normalną a osią Y: " + MathFunctions.AngleBetweenVectors(normalVector,new Vector3(0,1,0)));
+Console.WriteLine("Kąt między normalną a osią Z: " + MathFunctions.AngleBetweenVectors(normalVector,new Vector3(0,0,1)));
+
+Console.WriteLine("\t======ZAD 14======");
+
+
 
 Console.WriteLine("\t======TEST======");
 Matrix4x4 mac =  new Matrix4x4(2.0f);
