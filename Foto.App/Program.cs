@@ -50,15 +50,40 @@ Console.WriteLine(point);
 
 Console.WriteLine("\t======ZAD 13======");
 Vector3 normalVector = new Vector3(0, MathF.Cos(45.0f), MathF.Cos(45.0f));
-
-Plane P = new Plane(normalVector, new Vector3(0, 0, 0), 0.0f);
-
+Plane P = new Plane(normalVector, new Vector3(0, 0, 0));
 Console.WriteLine("Normalna: " + P.normal);
 Console.WriteLine("Kąt między normalną a osią Y: " + MathFunctions.AngleBetweenVectors(normalVector,new Vector3(0,1,0)));
 Console.WriteLine("Kąt między normalną a osią Z: " + MathFunctions.AngleBetweenVectors(normalVector,new Vector3(0,0,1)));
 
 Console.WriteLine("\t======ZAD 14======");
+Console.WriteLine("Czy istnieje przecięcie P z R2: "+ P.Intersects(R2, out Vector3 intersection));
+Console.WriteLine("W punkcie: "+intersection);
 
+Console.WriteLine("\t======ZAD 15======");
+Vector3 A = new Vector3(0, 0, 0);
+Vector3 B = new Vector3(1, 0, 0);
+Vector3 C = new Vector3(0, 1, 0);
+
+Triangle tri = new Triangle(A, B, C);
+
+Console.WriteLine("======1.======");
+Vector3 P1 = new Vector3(-1, 0.5f, 0);
+Vector3 P2 = new Vector3(1, 0.5f, 0);
+Ray P1P2 = new Ray(P2,(P1 - P2),100.0f);
+
+Console.WriteLine("Czy linia P1P2 przecina trójkąt: " + tri.Intersects(P1P2, out _));
+
+Console.WriteLine("======2.======");
+P1 =  new Vector3(2, -1, 0);
+P2 =  new Vector3(2, 2, 0);
+P1P2 = new Ray(P2,(P1 - P2),100.0f);
+Console.WriteLine("Czy linia P1P2 przecina trójkąt: " + tri.Intersects(P1P2, out _));
+
+Console.WriteLine("======3.======");
+P1 =  new Vector3(0, 0, -1);
+P2 =  new Vector3(0, 0, 1);
+P1P2 = new Ray(P2,(P1 - P2),100.0f);
+Console.WriteLine("Czy linia P1P2 przecina trójkąt: " + tri.Intersects(P1P2, out _));
 
 
 Console.WriteLine("\t======TEST======");
