@@ -33,7 +33,7 @@ public struct Sphere
         //2 punkty
         else if (discriminant > 0)
         {
-            float temp = (-b + MathF.Sqrt(discriminant)) / 2 * a;
+            float temp = (-b - MathF.Sqrt(discriminant)) / (2 * a);
 
             if (temp < t_max && temp > t_min)
             {
@@ -41,13 +41,12 @@ public struct Sphere
                 return true;
             }
             
-            temp = (-b - MathF.Sqrt(discriminant)) / a;
+            temp = (-b + MathF.Sqrt(discriminant)) / (2 * a);
             if (temp < t_max && temp > t_min)
             {
                 result = ray.origin + ray.direction * temp;
                 return true;
             }
-            
         }
         //0 punktow
         return false;
