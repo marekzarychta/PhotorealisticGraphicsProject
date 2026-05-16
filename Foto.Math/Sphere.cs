@@ -1,13 +1,23 @@
-﻿namespace Foto.Math;
+﻿using System.Drawing;
 
-public struct Sphere
+namespace Foto.Math;
+
+public struct Sphere : ISceneObject
 {
     public Vector3 center;
     public float radius;
+    public RGB Color { get; set; }
     public Sphere(Vector3 center, float radius)
     {
         this.center = center;
         this.radius = radius;
+    }
+
+    public Sphere(Vector3 center, float radius, RGB color)
+    {
+        this.center = center;
+        this.radius = radius;
+        this.Color = color;
     }
 
     public bool Hit(Ray ray, float t_min, float t_max, out Vector3 result)

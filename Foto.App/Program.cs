@@ -99,9 +99,37 @@ Console.WriteLine(result);
 
 #region Zad2
 
-Sphere sfera1 = new Sphere(new Vector3(15, 0, -20), 10.0f);
-Sphere sfera2 = new Sphere(new Vector3(0, 0, -10), 10.0f);
+Sphere sfera1 = new Sphere(new Vector3(12, 0, -40), 10.0f, new RGB(255, 0, 0));
+
+Sphere sfera2 = new Sphere(new Vector3(-10, 0, -4), 10.0f, new RGB(0, 255, 0));
+
+Scene scena = new Scene(new RGB(0, 0, 0));
+scena.Add(sfera1);
+scena.Add(sfera2);
+
 
 Image image = new Image(512, 512);
+
+CameraPerspective camera =
+    new CameraPerspective(new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 1.0f, 45.0f);
+
+RayTracer tracer = new RayTracer();
+
+
+Console.WriteLine("Kompiluję uruchamiam.");
+
+for (int y = 0; y < 512; y++)
+{
+    for (int x = 0; x < 512; x++)
+    {
+        Ray ray = camera.GenerateRay(x, y, 512, 512, 0.5f, 0.5f);
+
+
+        image.SetPixel(x, y, tracer.Trace(ray, scena));
+    }
+}
+
+image.SaveToPPM("output.ppm");
+Console.WriteLine("Zapisano do output.ppm.");
 
 #endregion

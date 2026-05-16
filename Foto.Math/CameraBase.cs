@@ -15,7 +15,7 @@ public abstract class CameraBase : ICamera
         
         Forward = (Target - Eye).Normalize();
         Right = Forward.Cross(Up).Normalize();
-        TrueUp = Right.Cross(Up);
+        TrueUp = Right.Cross(Forward).Normalize();
     }
 
     public abstract Ray GenerateRay(int x, int y, int imageWidth, int imageHeight, float sampleX, float sampleY);
