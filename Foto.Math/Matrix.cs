@@ -24,7 +24,8 @@ public struct Matrix4x4
             entries[i] = f;
         }
     }
-
+    
+    
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

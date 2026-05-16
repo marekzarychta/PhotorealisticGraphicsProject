@@ -1,7 +1,9 @@
 ﻿using System.Security.Cryptography;
 using Foto.Math;
 
-/*Zadania 1-5*/
+
+/*#region Zad1
+/*Zadania 1-5#1#
 Console.WriteLine("\t======ZAD 2======");
 Vector3 v1 = new Vector3(0,3,0);
 Vector3 v2 = new Vector3(5,5,0);
@@ -88,5 +90,18 @@ Console.WriteLine("Czy linia P1P2 przecina trójkąt: " + tri.Intersects(P1P2, o
 
 
 Console.WriteLine("\t======TEST======");
-Matrix4x4 mac =  new Matrix4x4(2.0f);
-Console.WriteLine("Matrix4x4 mac: " + mac);
+Sphere sfera = new Sphere(new Vector3(0,0,0),10);
+Ray testray = new Ray(new Vector3(20,0,0),new Vector3(-20,0,0), 100.0f);
+Console.WriteLine("Czy ray przecina sfere: "+ sfera.Hit(testray, 0.1f, 100.0f, out Vector3 result));
+Console.WriteLine(result);
+
+#endregion*/
+
+#region Zad2
+
+Sphere sfera1 = new Sphere(new Vector3(15, 0, -20), 10.0f);
+Sphere sfera2 = new Sphere(new Vector3(0, 0, -10), 10.0f);
+
+Image image = new Image(512, 512);
+
+#endregion
