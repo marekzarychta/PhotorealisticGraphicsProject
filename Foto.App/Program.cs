@@ -101,35 +101,66 @@ Console.WriteLine(result);
 
 Sphere sfera1 = new Sphere(new Vector3(12, 0, -40), 10.0f, new RGB(255, 0, 0));
 
-Sphere sfera2 = new Sphere(new Vector3(-10, 0, -4), 10.0f, new RGB(0, 255, 0));
+Sphere sfera2 = new Sphere(new Vector3(-8, 0, -16), 10.0f, new RGB(0, 255, 0));
 
 Scene scena = new Scene(new RGB(0, 0, 0));
 scena.Add(sfera1);
 scena.Add(sfera2);
 
+int width = 512;
+int height = 512;
 
-Image image = new Image(512, 512);
+Image image = new Image(width, height);
 
-CameraPerspective camera =
+CameraPerspective cameraPersp =
     new CameraPerspective(new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 1.0f, 45.0f);
+
+CameraOrthographic cameraOrtho =
+    new CameraOrthographic(new Vector3(0,0,0), new Vector3(0,0,-1), new Vector3(0, 1, 0), 1.0f, 45.0f);
 
 RayTracer tracer = new RayTracer();
 
 
 Console.WriteLine("Kompiluję uruchamiam.");
 
-for (int y = 0; y < 512; y++)
+void RenderScene(string filename, ICamera camera, List<Sample2D> samples)
 {
-    for (int x = 0; x < 512; x++)
+    Console.WriteLine($"\nRozpoczynam renderowanie: {filename}...");
+    Image image = new Image(width, height);
+
+    for (int y = 0; y < height; y++)
     {
-        Ray ray = camera.GenerateRay(x, y, 512, 512, 0.5f, 0.5f);
+        for (int x = 0; x < width; x++)
+        {
+            float rAccum = 0, gAccum = 0, bAccum = 0;
 
+            foreach (var sample in samples)
+            {
+                Ray ray = camera.GenerateRay(x, y, width, height, sample.X, sample.Y);
+                
+                RGB color = tracer.Trace(ray, scena);
+                
+                rAccum += color.r;
+                gAccum += color.g;
+                bAccum += color.b;
+            }
 
-        image.SetPixel(x, y, tracer.Trace(ray, scena));
+            float sampleCount = samples.Count;
+            image.SetPixel(x, y, rAccum / sampleCount, gAccum / sampleCount, bAccum / sampleCount);
+        }
     }
+    image.SaveToPPM(filename);
+    Console.WriteLine($"Zapisano do: {filename}");
 }
 
-image.SaveToPPM("output.ppm");
-Console.WriteLine("Zapisano do output.ppm.");
+var samples1spp = Sampler.MakeCenterSample();
+var samples2x2 = Sampler.MakeRegularSample(2);
+
+RenderScene("orthographic_1spp.ppm", cameraOrtho, samples1spp);
+
+RenderScene("perspective_1spp.ppm", cameraPersp, samples1spp);
+
+RenderScene("perspective_2x2_aa.ppm", cameraPersp, samples2x2);
+
 
 #endregion
