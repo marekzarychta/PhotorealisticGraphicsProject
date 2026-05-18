@@ -99,18 +99,18 @@ Console.WriteLine(result);
 
 #region Zad2
 
-Sphere sfera1 = new Sphere(new Vector3(12, 0, -40), 10.0f, new RGB(255, 0, 0));
+Sphere sfera1 = new Sphere(new Vector3(12, 0, -40), 10.0f, new RGB(1.0f, 0.0f, 0.0f));
 
-Sphere sfera2 = new Sphere(new Vector3(-8, 0, -16), 10.0f, new RGB(0, 255, 0));
+Sphere sfera2 = new Sphere(new Vector3(-12, 0, -40), 10.0f, new RGB(0.0f, 1.0f, 0.0f));
 
-Scene scena = new Scene(new RGB(0, 0, 0));
+Scene scena = new Scene(new RGB(0.0f, 0.0f, 0.0f));
+
 scena.Add(sfera1);
 scena.Add(sfera2);
 
 int width = 512;
 int height = 512;
 
-Image image = new Image(width, height);
 
 CameraPerspective cameraPersp =
     new CameraPerspective(new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 1.0f, 45.0f);
@@ -154,7 +154,7 @@ void RenderScene(string filename, ICamera camera, List<Sample2D> samples)
 }
 
 var samples1spp = Sampler.MakeCenterSample();
-var samples2x2 = Sampler.MakeRegularSample(2);
+var samples2x2 = Sampler.MakeRegularSample(4);
 
 RenderScene("orthographic_1spp.ppm", cameraOrtho, samples1spp);
 
