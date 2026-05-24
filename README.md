@@ -1,5 +1,6 @@
-<img width="512" height="512" alt="wynik" align="center" src="https://github.com/user-attachments/assets/f755e45f-132a-40f2-96d5-945ea81ab0b1" />
-
+<p align="center">
+<img width="512" height="512" alt="wynik" src="https://github.com/user-attachments/assets/f755e45f-132a-40f2-96d5-945ea81ab0b1" />
+</p>
 
 # C# Ray Tracing Image Generation
 
