@@ -1,6 +1,6 @@
 ﻿namespace Foto.Math;
 
-public struct Triangle : ISceneObject
+public class Triangle : ISceneObject
 {
     private Vector3[] vertices;
     private Vector3[] normals;
@@ -24,6 +24,15 @@ public struct Triangle : ISceneObject
         vertices[2] = p3;
         normals = new Vector3[3]; 
         Color = new RGB();
+    }
+
+    public Triangle(Vector3 p1, Vector3 p2, Vector3 p3, Material material)
+    {
+        vertices = new Vector3[3];
+        vertices[0] = p1;
+        vertices[1] = p2;
+        vertices[2] = p3;
+        this.Material = material;
     }
     
     public Triangle(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 normal1, Vector3 normal2, Vector3 normal3)

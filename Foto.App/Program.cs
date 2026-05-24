@@ -142,23 +142,32 @@ renderer.RenderScene("perspective_2x2_aa.ppm", cameraPersp, scena, samples2x2, w
 
 Scene scena = new Scene(new RGB(0.1f, 0.1f, 0.1f));
 
-Material czerwonyPlastik = new Material(new RGB(1.0f, 0.0f, 0.0f), 1.0f, 30.0f, 0.0f);
+Material czerwonyPlastik = new Material(new RGB(1.0f, 0.0f, 0.0f), 1.0f, 5.0f, 0.3f);
+Material zielonyPlastik = new Material(new RGB(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 0.0f);
+Material niebieskiPlastik = new Material(new RGB(0.0f, 0.0f, 1.0f), 1.0f, 30.0f, 0.0f);
+
 
 Material bialyMat = new Material(new RGB(0.8f, 0.8f, 0.8f), 0.0f, 1.0f, 0.0f);
 
-Sphere sfera = new Sphere(new Vector3(0, 0, 0), 3.0f, czerwonyPlastik);
+Sphere sfera = new Sphere(new Vector3(-2, 0, 0), 1.0f, czerwonyPlastik);
 scena.Add(sfera);
+
+Sphere sfera2 = new Sphere(new Vector3(2, -1, 0), 1.0f, zielonyPlastik);
+scena.Add(sfera2);
+
+Sphere sfera3 = new Sphere(new Vector3(0, 2, 0), 1.0f, niebieskiPlastik);
+scena.Add(sfera3);
 
 Plane plane = new Plane(new Vector3(0, 1, 0), new Vector3(0, -3, 0), bialyMat);
 scena.Add(plane);
 
-AreaLight miekkieSwiatlo = new AreaLight(new Vector3(-5.0f, 5.0f, 5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 4);
+/*AreaLight miekkieSwiatlo = new AreaLight(new Vector3(-5.0f, 5.0f, 5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 9);
 
-scena.AddLight(miekkieSwiatlo);
+scena.AddLight(miekkieSwiatlo);*/
 
-AreaLight miekkieSwiatlo2 = new AreaLight(new Vector3(-5.0f, 5.0f, -5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 4);
+PointLight pointlight = new PointLight(new Vector3(0, 7, 2), new RGB(1.0f, 1.0f, 1.0f));
+scena.AddLight(pointlight);
 
-scena.AddLight(miekkieSwiatlo2);
 
 
 CameraPerspective cameraPersp2 =
