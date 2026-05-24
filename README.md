@@ -1,3 +1,6 @@
+<img width="512" height="512" alt="wynik" src="https://github.com/user-attachments/assets/f755e45f-132a-40f2-96d5-945ea81ab0b1" />
+
+
 # C# Ray Tracing Image Generation
 
 CPU-based Ray Tracing engine implemented in C#. This project focuses on realistic light simulation using the Phong reflection model, soft shadows, and recursive reflections.
@@ -28,7 +31,8 @@ The engine follows a standard ray tracing pipeline:
 ## Getting Started
 To render a scene, configure your objects and materials in `Program.cs`:
 
-```csharp
+```csharp[Uploading test.ppm…]()
+
 // Example: Creating a shiny red sphere
 Material shinyRed = new Material(new RGB(1.0f, 0.0f, 0.0f), 1.0f, 100.0f, 0.5f);
 Sphere sphere = new Sphere(new Vector3(0, 0, 0), 1.0f, shinyRed);
