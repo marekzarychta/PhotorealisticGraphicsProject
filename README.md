@@ -8,6 +8,7 @@ CPU-based Ray Tracing engine implemented in C#. This project focuses on realisti
 
 ## Features
 * **Whitted-style Ray Tracing:** Supports recursive reflections for mirrors and polished surfaces.
+* **Math library written from scratch**
 * **Phong Illumination Model:** Implements realistic Diffuse and Specular lighting components.
 * **Soft Shadows:** Utilizes Area Lights with stochastic sampling to produce physically accurate, soft-edged shadows.
 * **Material System:** Configurable materials supporting various levels of shininess (specular coefficient) and reflectivity.
