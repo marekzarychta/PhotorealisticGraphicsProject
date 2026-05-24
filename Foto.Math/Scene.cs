@@ -3,6 +3,8 @@
 public class Scene
 {
     public List<ISceneObject> SceneObjects { get; set; } = new List<ISceneObject>();
+    
+    public List<ILight> Lights { get; set; } = new List<ILight>();
     public RGB BackgroundColor { get; set; }
     public Scene(RGB backgroundColor){
         BackgroundColor = backgroundColor;
@@ -12,29 +14,31 @@ public class Scene
     {
         SceneObjects.Add(sceneObject);
     }
+
+    public void AddLight(ILight light)
+    {
+        Lights.Add(light);
+    }
+    
     public void Remove(ISceneObject sceneObject)
     {
         SceneObjects.Remove(sceneObject);
     }
 
-    public bool Intersect(Ray ray, float tMin, float tMax, out ISceneObject hitObject)
+    public bool Intersect(Ray ray, float tMin, float tMax, out IntersectionInfo intersectionInfo)
     {
-        hitObject = null;
+        intersectionInfo = new IntersectionInfo();
         bool hitAnything = false;
 
         float closestT = tMax;
 
         foreach (var obj in SceneObjects)
         {
-            if (obj.Hit(ray, tMin, tMax, out Vector3 result))
+            if (obj.Hit(ray, tMin, closestT, out IntersectionInfo localIntersection))
             {
-                float t = (result - ray.origin).Length();
-                if (t > tMin && t < closestT)
-                {
-                    closestT = t;
-                    hitObject = obj;
+                    closestT = localIntersection.T;
+                    intersectionInfo = localIntersection;
                     hitAnything = true;
-                }
             }
         }
         return hitAnything;

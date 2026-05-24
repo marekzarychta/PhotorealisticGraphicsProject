@@ -7,6 +7,7 @@ public struct Sphere : ISceneObject
     public Vector3 center;
     public float radius;
     public RGB Color { get; set; }
+    public Material Material { get; set; }
     public Sphere(Vector3 center, float radius)
     {
         this.center = center;
@@ -20,9 +21,17 @@ public struct Sphere : ISceneObject
         this.Color = color;
     }
 
-    public bool Hit(Ray ray, float t_min, float t_max, out Vector3 result)
+    public Sphere(Vector3 center, float radius, Material material)
     {
-        result = new Vector3();
+        this.center = center;
+        this.radius = radius;
+        this.Material = material;
+        this.Color = material.DiffuseColor;
+    }
+    
+    public bool Hit(Ray ray, float t_min, float t_max, out IntersectionInfo intersection)
+    {
+        intersection = new IntersectionInfo();
         Vector3 oc = ray.origin - center;
         
         float a = ray.direction.Dot(ray.direction);
@@ -32,12 +41,15 @@ public struct Sphere : ISceneObject
         float c = oc.Dot(oc) - radius * radius;
         
         float discriminant = b * b - (4 * a * c);
-
+        
         //1 punkt
         if (discriminant == 0)
         {
             float t0 = -b / (2 * a);
-            result = ray.origin + ray.direction * t0;
+            intersection.Point = ray.origin + ray.direction * t0;
+            intersection.T = t0;
+            intersection.Normal = (intersection.Point - center).Normalize();
+            intersection.ObjectHit = this;
             return true;
         }
         //2 punkty
@@ -47,14 +59,21 @@ public struct Sphere : ISceneObject
 
             if (temp < t_max && temp > t_min)
             {
-                result = ray.origin + ray.direction * temp;
+                intersection.Point = ray.origin + ray.direction * temp;
+                intersection.T = temp;
+                intersection.Normal = (intersection.Point - center).Normalize();
+                intersection.ObjectHit = this;
                 return true;
             }
             
             temp = (-b + MathF.Sqrt(discriminant)) / (2 * a);
             if (temp < t_max && temp > t_min)
             {
-                result = ray.origin + ray.direction * temp;
+                intersection.Point = ray.origin + ray.direction * temp;
+                intersection.T = temp;
+                
+                intersection.Normal = (intersection.Point - center).Normalize();
+                intersection.ObjectHit = this;
                 return true;
             }
         }

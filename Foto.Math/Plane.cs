@@ -1,10 +1,14 @@
 ﻿namespace Foto.Math;
 
-public struct Plane
+public struct Plane : ISceneObject
 {
     public Vector3 normal;
     public Vector3 point;
     public float distance;
+
+    public RGB Color { get; set; }
+
+    public Material Material { get; set; }
 
     public Plane(Vector3 normal, Vector3 point)
     {
@@ -13,7 +17,15 @@ public struct Plane
         this.distance = this.normal.Dot(point);
     }
 
-    public Plane(Vector3 normal, float distance)
+    public Plane(Vector3 normal, Vector3 point, Material material)
+    {
+        this.normal = normal.Normalize();
+        this.point = point;
+        this.distance = this.normal.Dot(normal);
+        this.Material = material;
+    }
+
+public Plane(Vector3 normal, float distance)
     {
         this.normal = normal.Normalize();
         this.point = normal * distance;
@@ -38,17 +50,20 @@ public struct Plane
         return true;
     }
 
-    public bool Intersects(Ray ray, out Vector3 result)
+    public bool Hit(Ray ray, float t_min, float t_max, out IntersectionInfo intersection)
     {
-        result = new Vector3();
+        intersection = new IntersectionInfo();
         float denom = normal.Dot(ray.direction);
 
         if (MathF.Abs(denom) > 1e-6f)
         {
             float t = (point - ray.origin).Dot(normal) / denom;
-            if (t >= 0)
+            if (t >= t_min && t <= t_max)
             {
-                result = ray.origin + ray.direction * t;
+                intersection.T = t;
+                intersection.Point = ray.origin + ray.direction * t;
+                intersection.Normal = denom < 0 ? normal : normal * -1.0f;
+                intersection.ObjectHit = this;
                 return true;
             }
         }

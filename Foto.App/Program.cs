@@ -97,7 +97,7 @@ Console.WriteLine(result);
 
 #endregion*/
 
-#region Zad2
+/*#region Zad2
 
 Sphere sfera1 = new Sphere(new Vector3(12, 0, -40), 10.0f, new RGB(1.0f, 0.0f, 0.0f));
 
@@ -123,44 +123,52 @@ RayTracer tracer = new RayTracer();
 
 Console.WriteLine("Kompiluję uruchamiam.");
 
-void RenderScene(string filename, ICamera camera, List<Sample2D> samples)
-{
-    Console.WriteLine($"\nRozpoczynam renderowanie: {filename}...");
-    Image image = new Image(width, height);
+Renderer renderer = new Renderer(tracer);
 
-    for (int y = 0; y < height; y++)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            float rAccum = 0, gAccum = 0, bAccum = 0;
 
-            foreach (var sample in samples)
-            {
-                Ray ray = camera.GenerateRay(x, y, width, height, sample.X, sample.Y);
-                
-                RGB color = tracer.Trace(ray, scena);
-                
-                rAccum += color.r;
-                gAccum += color.g;
-                bAccum += color.b;
-            }
-
-            float sampleCount = samples.Count;
-            image.SetPixel(x, y, rAccum / sampleCount, gAccum / sampleCount, bAccum / sampleCount);
-        }
-    }
-    image.SaveToPPM(filename);
-    Console.WriteLine($"Zapisano do: {filename}");
-}
 
 var samples1spp = Sampler.MakeCenterSample();
 var samples2x2 = Sampler.MakeRegularSample(4);
 
-RenderScene("orthographic_1spp.ppm", cameraOrtho, samples1spp);
+renderer.RenderScene("orthographic_1spp.ppm", cameraOrtho, scena, samples1spp, width, height);
 
-RenderScene("perspective_1spp.ppm", cameraPersp, samples1spp);
+renderer.RenderScene("perspective_1spp.ppm", cameraPersp, scena, samples1spp, width, height);
 
-RenderScene("perspective_2x2_aa.ppm", cameraPersp, samples2x2);
+renderer.RenderScene("perspective_2x2_aa.ppm", cameraPersp, scena, samples2x2, width, height);
 
+#endregion*/
+
+#region Zad3
+
+Scene scena = new Scene(new RGB(0.1f, 0.1f, 0.1f));
+
+Material czerwonyPlastik = new Material(new RGB(1.0f, 0.0f, 0.0f), 1.0f, 30.0f, 0.0f);
+
+Material bialyMat = new Material(new RGB(0.8f, 0.8f, 0.8f), 0.0f, 1.0f, 0.0f);
+
+Sphere sfera = new Sphere(new Vector3(0, 0, 0), 3.0f, czerwonyPlastik);
+scena.Add(sfera);
+
+Plane plane = new Plane(new Vector3(0, 1, 0), new Vector3(0, -3, 0), bialyMat);
+scena.Add(plane);
+
+AreaLight miekkieSwiatlo = new AreaLight(new Vector3(-5.0f, 5.0f, 5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 4);
+
+scena.AddLight(miekkieSwiatlo);
+
+AreaLight miekkieSwiatlo2 = new AreaLight(new Vector3(-5.0f, 5.0f, -5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 4);
+
+scena.AddLight(miekkieSwiatlo2);
+
+
+CameraPerspective cameraPersp2 =
+    new CameraPerspective(new Vector3(0, 0, 10), new Vector3(0, 0, -1), new Vector3(0, 1, 0), 1.0f, 45.0f);
+
+RayTracer tracer = new RayTracer();
+Renderer renderer = new Renderer(tracer);
+
+var samples2x2 = Sampler.MakeRegularSample(2);
+
+renderer.RenderScene("test.ppm", cameraPersp2, scena, samples2x2, 512, 512);
 
 #endregion
