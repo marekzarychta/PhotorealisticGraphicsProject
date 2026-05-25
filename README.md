@@ -25,7 +25,7 @@ The engine follows a standard ray tracing pipeline:
 2.  **Intersection Testing:** The engine calculates intersections between rays and scene primitives.
 3.  **Lighting Calculation:**
     * For each hit, the engine computes light contributions from multiple sources.
-    * 
+    * The engine supports multiple bounces
     * **Shadow Rays:** The engine performs secondary ray-casting toward light sources to determine visibility.
 4.  **Recursion:** For reflective materials, the engine casts secondary "reflection rays" to simulate mirror-like surfaces.
 
