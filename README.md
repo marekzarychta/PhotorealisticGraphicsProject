@@ -15,6 +15,10 @@ CPU-based Ray Tracing engine implemented in C#. This project focuses on realisti
 * **Geometric Primitives:** Built-in support for Spheres, Planes, and Triangles.
 * **PPM Export:** Renders scenes directly into the Portable Pixmap (PPM) format.
 
+###Upcoming features
+* **Refraction**
+* **Path Tracing**
+
 ## How it Works
 The engine follows a standard ray tracing pipeline:
 1.  **Ray Generation:** Camera rays are cast from the viewpoint into the scene.
