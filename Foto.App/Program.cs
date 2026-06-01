@@ -142,8 +142,8 @@ renderer.RenderScene("perspective_2x2_aa.ppm", cameraPersp, scena, samples2x2, w
 
 Scene scena = new Scene(new RGB(0.1f, 0.1f, 0.1f));
 
-Material reflectMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 3.0f, 1.0f);
-Material refractMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 3.0f, 0.0f, 1.0f, 1.02f);
+Material reflectMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 5.0f, 1.0f);
+Material refractMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 5.0f, 0.25f, 0.75f, 1.5f);
 
 Material sufitMat = new Material(new RGB(0.8f, 0.8f, 0.8f), 0f, 0f, 0f);
 Material lewyMat = new Material(new RGB(1.0f, 0f, 0f), 0f, 0f, 0f);
@@ -153,7 +153,7 @@ Material prawyMat = new Material(new RGB(0f, 1.0f, 0f), 0f, 0f, 0f);
 Sphere sfera = new Sphere(new Vector3(-1, -2, -1), 1.0f, reflectMat);
 scena.Add(sfera);
 
-Sphere sfera2 = new Sphere(new Vector3(-1, -2f, 1), 1.0f, refractMat);
+Sphere sfera2 = new Sphere(new Vector3(1, -2f, 1), 1.0f, refractMat);
 scena.Add(sfera2);
 
 Plane podloga = new Plane(new Vector3(0,1,0), new Vector3(0,-3,0), sufitMat);
@@ -171,7 +171,8 @@ scena.Add(prawa);
 Plane tylna = new Plane(new Vector3(0, 0, 1), new Vector3(0, 0, -3), sufitMat);
 scena.Add(tylna);
 
-AreaLight miekkieSwiatlo = new AreaLight(new Vector3(0.0f, 2.9f, 0.0f), new RGB(0.9f,0.9f,0.9f), 4f, 16);
+AreaLight miekkieSwiatlo =
+    new AreaLight(new Vector3(0.0f, 2.9f, 0.0f), new RGB(0.7f,0.7f,0.7f), 1f, new Vector3(0, -1, 0), 16);
 
 scena.AddLight(miekkieSwiatlo);
 

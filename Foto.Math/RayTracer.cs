@@ -22,7 +22,7 @@ private RGB TraceRecursive(Ray ray, Scene scene, int depth)
     }
 
     Material mat = iInfo.ObjectHit.Material;
-    RGB totalLight = mat.DiffuseColor * 0.25f; // Ambient
+    RGB totalLight = mat.DiffuseColor * 0.15f; // Ambient
 
     if (mat.RefractFraction < 1.0f)
     {

@@ -125,6 +125,7 @@ public class AreaLight : ILight
     public int SamplesCount { get; set; }
 
     private RGB originalColor;
+    private Vector3 lightNormal;
 
     public AreaLight(Vector3 position, RGB lightColor, float radius, int samplesCount = 3)
     {
@@ -133,15 +134,36 @@ public class AreaLight : ILight
         SamplesCount = samplesCount;
         originalColor = lightColor;
     }
+    
+    public AreaLight(Vector3 position, RGB lightColor, float radius, Vector3 lightNormal, int samplesCount = 3)
+    {
+        baseLight = new PointLight(position, lightColor);
+        Radius = radius;
+        SamplesCount = samplesCount;
+        originalColor = lightColor;
+        this.lightNormal = lightNormal;
+    }
 
     public RGB GetDiffuse(Vector3 cameraPosition, IntersectionInfo intersectionInfo)
     {
-        return baseLight.GetDiffuse(cameraPosition, intersectionInfo);
+        Vector3 dirToPoint = (intersectionInfo.Point - Position).Normalize();
+        float cosEmission = dirToPoint.Dot(lightNormal);
+        
+        if (cosEmission <= 0.0f) return new RGB(0, 0, 0);
+
+        RGB baseDiffuse = baseLight.GetDiffuse(cameraPosition, intersectionInfo);
+        return baseDiffuse * cosEmission;
     }
 
     public RGB GetSpecular(Vector3 cameraPosition, IntersectionInfo intersectionInfo)
     {
-        return baseLight.GetSpecular(cameraPosition, intersectionInfo);
+        Vector3 dirToPoint = (intersectionInfo.Point - Position).Normalize();
+        float cosEmission = dirToPoint.Dot(lightNormal);
+        
+        if (cosEmission <= 0.0f) return new RGB(0, 0, 0);
+
+        RGB baseSpecular = baseLight.GetSpecular(cameraPosition, intersectionInfo);
+        return baseSpecular * cosEmission;
     }
 
     public bool IsInShadow(IntersectionInfo intersectionInfo, Scene scene)
@@ -150,24 +172,26 @@ public class AreaLight : ILight
 
         int shadowHits = 0;
         int totalSamples = SamplesCount * SamplesCount;
-        Vector3 centerPosition = baseLight.Position;
+        Vector3 centerPosition = Position;
 
         for (int x = 0; x < SamplesCount; x++)
         {
             for (int y = 0; y < SamplesCount; y++)
             {
                 float offsetX = SamplesCount > 1 ? ((x / (float)(SamplesCount - 1)) - 0.5f) * 2.0f * Radius : 0;
-                float offsetY = SamplesCount > 1 ? ((y / (float)(SamplesCount - 1)) - 0.5f) * 2.0f * Radius : 0;
+                float offsetZ = SamplesCount > 1 ? ((y / (float)(SamplesCount - 1)) - 0.5f) * 2.0f * Radius : 0;
 
                 Vector3 samplePosition = new Vector3(
                     centerPosition.x + offsetX,
-                    centerPosition.y + offsetY,
-                    centerPosition.z
+                    centerPosition.y,
+                    centerPosition.z + offsetZ
                 );
 
                 Vector3 lightVec = samplePosition - intersectionInfo.Point;
                 float distanceToLight = lightVec.Length();
                 Vector3 shadowDirection = lightVec.Normalize();
+
+
 
                 Vector3 safeStartPoint = intersectionInfo.Point + (intersectionInfo.Normal * 0.001f);
                 Ray shadowRay = new Ray(safeStartPoint, shadowDirection);
