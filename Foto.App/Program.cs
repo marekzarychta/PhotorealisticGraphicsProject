@@ -142,31 +142,44 @@ renderer.RenderScene("perspective_2x2_aa.ppm", cameraPersp, scena, samples2x2, w
 
 Scene scena = new Scene(new RGB(0.1f, 0.1f, 0.1f));
 
-Material czerwonyPlastik = new Material(new RGB(1.0f, 0.0f, 0.0f), 1.0f, 5.0f, 0.3f);
-Material zielonyPlastik = new Material(new RGB(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 0.0f);
-Material niebieskiPlastik = new Material(new RGB(0.0f, 0.0f, 1.0f), 1.0f, 30.0f, 0.0f);
+Material reflectMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 3.0f, 1.0f);
+Material refractMat = new Material(new RGB(0.0f, 0.0f, 0.0f), 1.0f, 3.0f, 0.0f, 1.0f, 1.02f);
+
+Material sufitMat = new Material(new RGB(0.8f, 0.8f, 0.8f), 0f, 0f, 0f);
+Material lewyMat = new Material(new RGB(1.0f, 0f, 0f), 0f, 0f, 0f);
+Material prawyMat = new Material(new RGB(0f, 1.0f, 0f), 0f, 0f, 0f);
 
 
-Material bialyMat = new Material(new RGB(0.8f, 0.8f, 0.8f), 0.0f, 1.0f, 0.0f);
-
-Sphere sfera = new Sphere(new Vector3(-2, 0, 0), 1.0f, czerwonyPlastik);
+Sphere sfera = new Sphere(new Vector3(-1, -2, -1), 1.0f, reflectMat);
 scena.Add(sfera);
 
-Sphere sfera2 = new Sphere(new Vector3(2, -1, 0), 1.0f, zielonyPlastik);
+Sphere sfera2 = new Sphere(new Vector3(-1, -2f, 1), 1.0f, refractMat);
 scena.Add(sfera2);
 
-Sphere sfera3 = new Sphere(new Vector3(0, 2, 0), 1.0f, niebieskiPlastik);
-scena.Add(sfera3);
+Plane podloga = new Plane(new Vector3(0,1,0), new Vector3(0,-3,0), sufitMat);
+scena.Add(podloga);
 
-Plane plane = new Plane(new Vector3(0, 1, 0), new Vector3(0, -3, 0), bialyMat);
-scena.Add(plane);
+Plane sufit = new Plane(new Vector3(0,-1,0), new Vector3(0,3,0), sufitMat);
+scena.Add(sufit);
 
-/*AreaLight miekkieSwiatlo = new AreaLight(new Vector3(-5.0f, 5.0f, 5.0f), new RGB(1.0f, 1.0f, 1.0f), 0.5f, 9);
+Plane lewa = new Plane(new Vector3(1,0,0), new Vector3(-3,0,0), lewyMat);
+scena.Add(lewa);
 
-scena.AddLight(miekkieSwiatlo);*/
+Plane prawa = new Plane(new Vector3(-1, 0, 0), new Vector3(3, 0, 0), prawyMat);
+scena.Add(prawa);
 
-PointLight pointlight = new PointLight(new Vector3(0, 7, 2), new RGB(1.0f, 1.0f, 1.0f));
+Plane tylna = new Plane(new Vector3(0, 0, 1), new Vector3(0, 0, -3), sufitMat);
+scena.Add(tylna);
+
+AreaLight miekkieSwiatlo = new AreaLight(new Vector3(0.0f, 2.9f, 0.0f), new RGB(0.9f,0.9f,0.9f), 4f, 16);
+
+scena.AddLight(miekkieSwiatlo);
+
+/*
+PointLight pointlight = new PointLight(new Vector3(0, 7, 2), new RGB(0.8f,0.8f,0.8f), 1F, 0.05f, 0.01f);
 scena.AddLight(pointlight);
+*/
+
 
 
 
